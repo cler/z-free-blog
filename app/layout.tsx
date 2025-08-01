@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { APP_NAME, APP_DESCRIPTION } from "@/lib/constants";
+import '@/assets/styles/globals.css';
 
 export const metadata: Metadata = {
   title: APP_NAME,
   description: APP_DESCRIPTION,
-};
+};  
 
 export default function RootLayout({
   children,
@@ -13,9 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`antialiased`}
-      >
+      <body>
         {children}
       </body>
     </html>
