@@ -10,6 +10,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { usePageTitle } from "@/components/dashboard/page-title-context"
 
 export function NavMain({
   items,
@@ -20,6 +21,12 @@ export function NavMain({
     icon?: Icon
   }[]
 }) {
+  const { setCurrentTitle } = usePageTitle()
+
+  const handleMenuClick = (title: string) => {
+    setCurrentTitle(title)
+  }
+
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
@@ -45,7 +52,10 @@ export function NavMain({
         <SidebarMenu>
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton tooltip={item.title}>
+              <SidebarMenuButton 
+                tooltip={item.title}
+                onClick={() => handleMenuClick(item.title)}
+              >
                 {item.icon && <item.icon />}
                 <span>{item.title}</span>
               </SidebarMenuButton>
