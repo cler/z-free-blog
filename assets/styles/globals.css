@@ -110,7 +110,37 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-}
+  --animate-shine: shine var(--duration) infinite linear;
+  @keyframes shine {
+  0% {
+    background-position: 0% 0%;
+    }
+  50% {
+    background-position: 100% 100%;
+    }
+  to {
+    background-position: 0% 0%;
+    }
+  }
+  --animate-marquee: marquee var(--duration) infinite linear;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite
+;
+  @keyframes marquee {
+  from {
+    transform: translateX(0);
+    }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+  @keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+    }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+    }
+  }}
 
 body {
   font-family: var(--font-yozai);
@@ -171,35 +201,35 @@ body {
   body {
     @apply bg-background text-foreground;
   }
-  
+
   /* 自定义滚动条样式 - 小火车风格 */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
-  
+
   ::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 10px;
     box-shadow: inset 0 0 2px rgba(0,0,0,0.1);
   }
-  
+
   ::-webkit-scrollbar-thumb {
     background: linear-gradient(45deg, #45b7d1, #4ecdc4, #96ceb4, #ff6b6b);
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     position: relative;
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(45deg, #42a5f5, #26c6da, #66bb6a, #ff5252);
     transform: scale(1.1);
   }
-  
+
   ::-webkit-scrollbar-thumb:active {
     background: linear-gradient(45deg, #1e88e5, #00acc1, #43a047, #e53935);
   }
-  
+
   /* Firefox 滚动条样式 */
   html {
     scrollbar-width: thin;

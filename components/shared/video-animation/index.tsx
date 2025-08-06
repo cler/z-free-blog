@@ -44,6 +44,7 @@ export default function VideoAnimation({ videoSrc, children, className = '', per
           delay: delayTime,
         });
 
+
         // 个人信息从下方移动到中心
         tl.to(personalInfoSelector, {
           y: "0",
@@ -51,12 +52,18 @@ export default function VideoAnimation({ videoSrc, children, className = '', per
           duration: animationDuration,
           ease: "power2.out",
         })
+        .to(".header-box",{
+          y: "0",
+          duration: animationDuration * 0.6,
+          ease: "power2.inOut",
+        },"<")
         // 视频缩放效果
         .to(vdRef.current, {
           scale: 1,
           duration: animationDuration * 0.6,
           ease: "power2.inOut",
-        }, `-=${animationDuration * 0.3}`);
+        }, `-=${animationDuration * 0.3}`)
+       
       };
     }
   });
