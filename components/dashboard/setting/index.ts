@@ -1,0 +1,6 @@
+export { VideoConfig } from './VideoConfig'
+export { NavConfig } from './NavConfig'
+export { PersonalConfig } from './PersonalConfig'
+export { SocialConfig } from './SocialConfig'
+export { CardsConfig } from './CardsConfig'
+export { ThemeConfig } from './ThemeConfig'

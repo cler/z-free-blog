@@ -11,6 +11,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { usePageTitle } from "@/components/dashboard/page-title-context"
+import { useRouter } from "next/navigation"
 
 export function NavSecondary({
   items,
@@ -20,12 +21,21 @@ export function NavSecondary({
     title: string
     url: string
     icon: Icon
+    onClick?: () => void
   }[]
 } & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
   const { setCurrentTitle } = usePageTitle()
+  const router = useRouter()
 
-  const handleMenuClick = (title: string) => {
-    setCurrentTitle(title)
+  const handleMenuClick = (item: {
+    title: string
+    url: string
+    icon: Icon
+    onClick?: () => void
+  }) => {
+    setCurrentTitle(item.title)
+    item.onClick?.()
+    router.push(item.url)
   }
 
   return (
@@ -35,7 +45,7 @@ export function NavSecondary({
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton 
-                onClick={() => handleMenuClick(item.title)}
+                onClick={() => handleMenuClick(item)}
               >
                 <item.icon />
                 <span>{item.title}</span>

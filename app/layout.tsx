@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { APP_NAME, APP_DESCRIPTION } from "@/lib/constants";
 import '@/assets/styles/globals.css';
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: APP_NAME,
@@ -16,6 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         {children}
+        <Toaster />
       </body>
     </html>
   );

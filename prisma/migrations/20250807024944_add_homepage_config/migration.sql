@@ -1,0 +1,45 @@
+-- CreateTable
+CREATE TABLE "public"."homepage_configs" (
+    "id" TEXT NOT NULL,
+    "videoUrl" TEXT,
+    "videoTitle" TEXT,
+    "videoPoster" TEXT,
+    "navTitle" TEXT,
+    "navSlogan" TEXT,
+    "navLogo" TEXT,
+    "personalName" TEXT,
+    "personalTitle" TEXT,
+    "personalBio" TEXT,
+    "personalAvatar" TEXT,
+    "personalLocation" TEXT,
+    "personalWebsite" TEXT,
+    "personalEmail" TEXT,
+    "githubUrl" TEXT,
+    "twitterUrl" TEXT,
+    "linkedinUrl" TEXT,
+    "wechatQr" TEXT,
+    "cardTitle1" TEXT,
+    "cardContent1" TEXT,
+    "cardIcon1" TEXT,
+    "cardLink1" TEXT,
+    "cardTitle2" TEXT,
+    "cardContent2" TEXT,
+    "cardIcon2" TEXT,
+    "cardLink2" TEXT,
+    "cardTitle3" TEXT,
+    "cardContent3" TEXT,
+    "cardIcon3" TEXT,
+    "cardLink3" TEXT,
+    "primaryColor" TEXT DEFAULT '#3b82f6',
+    "secondaryColor" TEXT DEFAULT '#64748b',
+    "backgroundColor" TEXT DEFAULT '#ffffff',
+    "isActive" BOOLEAN NOT NULL DEFAULT true,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdBy" TEXT,
+
+    CONSTRAINT "homepage_configs_pkey" PRIMARY KEY ("id")
+);
+
+-- AddForeignKey
+ALTER TABLE "public"."homepage_configs" ADD CONSTRAINT "homepage_configs_createdBy_fkey" FOREIGN KEY ("createdBy") REFERENCES "public"."User"("id") ON DELETE SET NULL ON UPDATE CASCADE;

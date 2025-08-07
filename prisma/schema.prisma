@@ -85,3 +85,63 @@ model Authenticator {
  
   @@id([userId, credentialID])
 }
+
+// 项目主页配置表（全局配置，不关联用户）
+model HomePageConfig {
+  id                String   @id @default(cuid())
+  
+  // 视频配置
+  videoUrl          String?  // 主页视频URL
+  videoTitle        String?  // 视频标题
+  videoPoster       String?  // 视频封面图
+  
+  // 导航栏配置
+  navTitle          String?  // 导航栏标题
+  navSlogan         String?  // 导航栏标语
+  navLogo           String?  // 导航栏Logo
+  
+  // 个人介绍配置
+  personalName      String?  // 个人姓名
+  personalTitle     String?  // 个人职位/标题
+  personalBio       String?  @db.Text // 个人简介
+  personalAvatar    String?  // 个人头像
+  personalLocation  String?  // 所在地
+  personalWebsite   String?  // 个人网站
+  personalEmail     String?  // 联系邮箱
+  
+  // 社交媒体链接
+  githubUrl         String?  // GitHub链接
+  twitterUrl        String?  // Twitter链接
+  linkedinUrl       String?  // LinkedIn链接
+  wechatQr          String?  // 微信二维码
+  
+  // 卡片信息配置
+  cardTitle1        String?  // 卡片1标题
+  cardContent1      String?  @db.Text // 卡片1内容
+  cardIcon1         String?  // 卡片1图标
+  cardLink1         String?  // 卡片1链接
+  
+  cardTitle2        String?  // 卡片2标题
+  cardContent2      String?  @db.Text // 卡片2内容
+  cardIcon2         String?  // 卡片2图标
+  cardLink2         String?  // 卡片2链接
+  
+  cardTitle3        String?  // 卡片3标题
+  cardContent3      String?  @db.Text // 卡片3内容
+  cardIcon3         String?  // 卡片3图标
+  cardLink3         String?  // 卡片3链接
+  
+  // 主题配置
+  primaryColor      String?  @default("#3b82f6") // 主色调
+  secondaryColor    String?  @default("#64748b") // 辅助色
+  backgroundColor   String?  @default("#ffffff") // 背景色
+  
+  // 系统字段
+  isActive          Boolean  @default(true) // 是否启用（用于支持多套配置切换）
+  configName        String   @default("default") // 配置名称
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  @@map("homepage_configs")
+  @@unique([configName]) // 确保配置名称唯一
+}
