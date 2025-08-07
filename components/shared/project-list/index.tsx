@@ -18,10 +18,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { BorderBeam } from "@/components/magicui/border-beam";
-import { Button } from "@/components/ui/button";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import Link from "next/link";
 
 interface Project {
   id: string;
@@ -106,7 +104,7 @@ const TechStackMarquee = ({ techStack }: { techStack: string[] }) => {
       if (elWidth > parentWidth) {
         gsap.to(el, {
           x: -(elWidth - parentWidth + 16),
-          duration: techStack.length * 0.7,
+          duration: techStack.length * 0.9,
           ease: "none",
           repeat: -1,
           yoyo: true,
@@ -184,30 +182,6 @@ function ProjectList() {
                   <TechStackMarquee techStack={project.techStack} />
                 </div>
               </CardContent>
-              <CardFooter className="flex gap-2 pt-4">
-                <Button
-                  onClick={() => handlePreview(project)}
-                  className="flex-1"
-                  variant="default"
-                >
-                  <AiOutlineEye />
-                  预览
-                </Button>
-                <Button
-                  asChild
-                  className="flex-1"
-                  variant="outline"
-                >
-                  <Link
-                    href={project.repositoryUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <AiOutlineGithub />
-                    源码
-                  </Link>
-                </Button>
-              </CardFooter>
             </Card>
           );
         })}
