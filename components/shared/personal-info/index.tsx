@@ -9,7 +9,7 @@ interface PersonalInfoComponentProps {
 export default function PersonalInfoComponent({ data, className = '' }: PersonalInfoComponentProps) {
   return (
     <div className={`person-info ${className}`}>
-      <div className="max-w-4xl mx-auto px-6 py-12">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-white mb-4">
             {data.title}
@@ -19,7 +19,7 @@ export default function PersonalInfoComponent({ data, className = '' }: Personal
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-12">
           <div className="bg-white bg-opacity-20 rounded-lg shadow-lg p-6">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">
               {data.frontendStack.title}
@@ -47,7 +47,7 @@ export default function PersonalInfoComponent({ data, className = '' }: Personal
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">
             {data.specialties.title}
           </h2>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
             {data.specialties.items.map((specialty, index) => (
               <div key={index}>
                 <div className="text-3xl mb-2">{specialty.icon}</div>

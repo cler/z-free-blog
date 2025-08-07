@@ -1,5 +1,4 @@
 import type { NextAuthConfig } from 'next-auth';
-import { NextResponse } from 'next/server';
 
 export const authConfig = {
   providers: [], // Required by NextAuthConfig type
@@ -7,13 +6,7 @@ export const authConfig = {
     authorized({ request, auth }) {
       // Array of regex patterns of paths we want to protect
       const protectedPaths = [
-        /\/shipping-address/,
-        /\/payment-method/,
-        /\/place-order/,
-        /\/profile/,
-        /\/user\/(.*)/,
-        /\/order\/(.*)/,
-        /\/admin/,
+        /\/dashboard\/(.*)/,
       ];
 
       // Get pathname from the req URL object

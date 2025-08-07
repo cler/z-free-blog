@@ -30,7 +30,7 @@ function Logo() {
 
   return (
     <div className="items-center hidden md:flex">
-      <Link href="/" className="text-xl font-bold">
+      <Link href="/" className="text-xl font-bold text-white/90 hover:text-white transition-colors duration-300">
         {logoText.split("").map((char, index) => (
           <span
             key={index}

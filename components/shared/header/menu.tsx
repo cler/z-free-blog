@@ -9,12 +9,11 @@ import {
 import Link from "next/link";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { EllipsisVertical } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 function Menu() {
  const navItems = [
     { href: "/", label: "首页", icon: AiOutlineHome },
-    { href: "/posts", label: "文章", icon: AiOutlineFileText },
+    { href: "/articles", label: "文章", icon: AiOutlineFileText },
     { href: "/categories", label: "分类", icon: AiOutlineTags },
     { href: "/about", label: "关于", icon: AiOutlineUser },
     { href: "/contact", label: "联系", icon: AiOutlineMail },
@@ -29,7 +28,7 @@ function Menu() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="group flex items-center gap-2 text-gray-700 hover:scale-110 transition-all duration-300 transform"
+                  className="group flex items-center gap-2 text-white/90 hover:text-white hover:scale-110 transition-all duration-300 transform"
                 >
                   <IconComponent className="text-lg group-hover:rotate-12 transition-transform duration-300" />
                   <span className="font-medium group-hover:font-semibold transition-all duration-200">
@@ -52,7 +51,7 @@ function Menu() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="group flex items-center gap-2 text-gray-700 hover:scale-110 transition-all duration-300 transform"
+                    className="group flex items-center gap-2  hover:scale-110 transition-all duration-300 transform"
                   >
                     <IconComponent className="text-lg group-hover:rotate-12 transition-transform duration-300" />
                     <span className="font-medium group-hover:font-semibold transition-all duration-200">

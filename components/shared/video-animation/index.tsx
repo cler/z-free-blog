@@ -69,17 +69,23 @@ export default function VideoAnimation({ videoSrc, children, className = '', per
   });
 
   return (
-    <div className={`h-dvh first-vd-wrapper relative overflow-hidden ${className}`}>
-      <video
-        className="w-full h-full object-cover object-center"
-        src={videoSrc}
-        muted
-        preload="auto"
-        playsInline
-        ref={vdRef}
-      />
-      <div className="absolute inset-0 flex items-center justify-center">
-        {children}
+    <div className={`min-h-dvh first-vd-wrapper relative ${className}`}>
+      {/* 固定背景视频 */}
+      <div className="fixed inset-0 z-0">
+        <video
+          className="w-full h-full object-cover object-center"
+          src={videoSrc}
+          muted
+          preload="auto"
+          playsInline
+          ref={vdRef}
+        />
+      </div>
+      {/* 可滚动内容区域 */}
+      <div className="relative z-10 min-h-dvh flex items-center justify-center overflow-y-auto">
+        <div className="w-full">
+          {children}
+        </div>
       </div>
     </div>
   );
