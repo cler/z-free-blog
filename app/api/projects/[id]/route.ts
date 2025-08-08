@@ -5,11 +5,12 @@ import prisma from "@/lib/db/prisma";
 // GET - 获取单个项目
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const project = await prisma.project.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
     
     if (!project) {
@@ -41,9 +42,10 @@ export async function GET(
 // PUT - 更新项目
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await auth();
     
     if (!session?.user?.email) {
@@ -58,7 +60,7 @@ export async function PUT(
     
     // 检查项目是否存在
     const existingProject = await prisma.project.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
     
     if (!existingProject) {
@@ -100,7 +102,7 @@ export async function PUT(
     }
     
     const project = await prisma.project.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         title,
         description,
@@ -135,9 +137,10 @@ export async function PUT(
 // DELETE - 删除项目
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await auth();
     
     if (!session?.user?.email) {
@@ -152,7 +155,7 @@ export async function DELETE(
     
     // 检查项目是否存在
     const existingProject = await prisma.project.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
     
     if (!existingProject) {
@@ -167,7 +170,7 @@ export async function DELETE(
     
     // 检查权限（只有项目创建者或管理员可以删除）
     await prisma.project.delete({
-      where: { id: params.id }
+      where: { id }
     });
     
     return NextResponse.json({
