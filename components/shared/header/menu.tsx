@@ -5,6 +5,7 @@ import {
   AiOutlineTags,
   AiOutlineUser,
   AiOutlineMail,
+  AiOutlineProject,
 } from "react-icons/ai";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
@@ -13,6 +14,7 @@ import { EllipsisVertical } from 'lucide-react';
 function Menu() {
  const navItems = [
     { href: "/", label: "首页", icon: AiOutlineHome },
+    { href: "/projects", label: "项目", icon: AiOutlineProject },
     { href: "/articles", label: "文章", icon: AiOutlineFileText },
     { href: "/categories", label: "分类", icon: AiOutlineTags },
     { href: "/about", label: "关于", icon: AiOutlineUser },

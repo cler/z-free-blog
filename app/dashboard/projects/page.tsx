@@ -9,6 +9,7 @@ import {
   AiOutlinePlus,
   AiOutlineEdit,
   AiOutlineDelete,
+  AiOutlineStar,
 } from "react-icons/ai";
 import {
   Card,
@@ -44,11 +45,10 @@ import {
   createProject, 
   updateProject, 
   deleteProject,
-  initializeProjects,
-  clearProjects,
   CreateProjectData
 } from "@/lib/services/projects";
 import { toast } from "sonner";
+import { Checkbox } from "@/components/ui/checkbox";
 
 
 
@@ -118,6 +118,7 @@ export default function ProjectsPage() {
     startDate: "",
     endDate: "",
     status: "进行中",
+    featured: false,
   });
   const [selectedTech, setSelectedTech] = useState("");
   const [loading, setLoading] = useState(true);
@@ -142,46 +143,6 @@ export default function ProjectsPage() {
       toast.error('加载项目失败');
     } finally {
       setLoading(false);
-    }
-  };
-
-  // 初始化项目数据
-  const handleInitializeProjects = async () => {
-    if (!confirm('确定要初始化项目数据吗？这将添加示例项目到数据库中。')) {
-      return;
-    }
-    
-    try {
-      const response = await initializeProjects();
-      if (response.success) {
-        toast.success(response.message || '初始化成功');
-        await loadProjects();
-      } else {
-        toast.error(response.error || '初始化失败');
-      }
-    } catch (error) {
-      console.error('Failed to initialize projects:', error);
-      toast.error('初始化项目数据失败');
-    }
-  };
-
-  // 清空项目数据
-  const handleClearProjects = async () => {
-    if (!confirm('确定要清空所有项目数据吗？此操作不可恢复！')) {
-      return;
-    }
-    
-    try {
-      const response = await clearProjects();
-      if (response.success) {
-        toast.success(response.message || '清空成功');
-        await loadProjects();
-      } else {
-        toast.error(response.error || '清空失败');
-      }
-    } catch (error) {
-      console.error('Failed to clear projects:', error);
-      toast.error('清空项目数据失败');
     }
   };
 
@@ -254,6 +215,7 @@ export default function ProjectsPage() {
           startDate: "",
           endDate: "",
           status: "进行中",
+          featured: false,
         });
       } else {
         toast.error(response.error || '保存项目失败');
@@ -292,12 +254,6 @@ export default function ProjectsPage() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={handleInitializeProjects}>
-            初始化数据
-          </Button>
-          <Button variant="outline" onClick={handleClearProjects}>
-            清空数据
-          </Button>
           <Button onClick={loadProjects} variant="outline">
             刷新
           </Button>
@@ -344,6 +300,18 @@ export default function ProjectsPage() {
             </div>
           </CardContent>
         </Card>
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-gray-600">
+              精选项目
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-yellow-600">
+              {projects.filter((p) => p.featured).length}
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       {/* 项目列表 */}
@@ -360,12 +328,20 @@ export default function ProjectsPage() {
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <CardTitle className="text-lg">{project.title}</CardTitle>
-                    <Badge
-                      className={`mt-2 ${getStatusColor(project.status)}`}
-                      variant="secondary"
-                    >
-                      {project.status}
-                    </Badge>
+                    <div className="flex items-center gap-2 mt-2">
+                      <Badge
+                        className={`${getStatusColor(project.status)}`}
+                        variant="secondary"
+                      >
+                        {project.status}
+                      </Badge>
+                      {project.featured && (
+                        <Badge variant="secondary" className="bg-yellow-400 text-yellow-900">
+                          <AiOutlineStar className="mr-1" />
+                          精选
+                        </Badge>
+                      )}
+                    </div>
                   </div>
                   <div className="flex gap-2">
                     <Button
@@ -606,6 +582,22 @@ export default function ProjectsPage() {
                   ))}
                 </div>
               </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="featured" className="text-right">
+              精选项目
+            </Label>
+            <div className="col-span-3 flex items-center space-x-2">
+              <Checkbox
+                id="featured"
+                checked={formData.featured || false}
+                onCheckedChange={(checked) =>
+                  setFormData({ ...formData, featured: checked === true })
+                }
+              />
+              <Label htmlFor="featured">标记为精选项目</Label>
             </div>
           </div>
 

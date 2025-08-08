@@ -14,28 +14,28 @@ export default function PersonalInfoComponent({ data, className = '' }: Personal
           <h1 className="text-4xl font-bold text-white mb-4">
             {data.title}
           </h1>
-          <p className="text-xl text-gray-200 leading-relaxed">
+          <p className="text-xl text-white">
             {data.subtitle}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-12">
-          <div className="bg-white bg-opacity-20 rounded-lg shadow-lg p-6">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+          <div className="bg-black/20 border border-white/10 rounded-2xl p-6">
+            <h2 className="text-2xl font-semibold text-white mb-4">
               {data.frontendStack.title}
             </h2>
-            <ul className="space-y-2 text-gray-600">
+            <ul className="space-y-2 text-white">
               {data.frontendStack.skills.map((skill, index) => (
                 <li key={index}>• {skill.name} - {skill.description}</li>
               ))}
             </ul>
           </div>
 
-          <div className="bg-white bg-opacity-20 rounded-lg shadow-lg p-6">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+          <div className="bg-black/20  border border-white/10 rounded-2xl p-6">
+            <h2 className="text-2xl font-semibold text-white mb-4">
               {data.backendStack.title}
             </h2>
-            <ul className="space-y-2 text-gray-600">
+            <ul className="space-y-2 text-white/95">
               {data.backendStack.skills.map((skill, index) => (
                 <li key={index}>• {skill.name} - {skill.description}</li>
               ))}
@@ -43,16 +43,16 @@ export default function PersonalInfoComponent({ data, className = '' }: Personal
           </div>
         </div>
         
-        <div className="bg-gradient-to-r from-blue-100 to-indigo-100 bg-opacity-20 rounded-lg p-8 text-center">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+        <div className="bg-black/20 backdrop-blur-md border border-white/10 rounded-2xl p-8 text-center">
+          <h2 className="text-2xl font-semibold text-white mb-4">
             {data.specialties.title}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
             {data.specialties.items.map((specialty, index) => (
               <div key={index}>
                 <div className="text-3xl mb-2">{specialty.emoji}</div>
-                <h3 className="font-semibold text-gray-700 mb-2">{specialty.title}</h3>
-                <p className="text-sm text-gray-600">
+                <h3 className="font-semibold text-white mb-2">{specialty.title}</h3>
+                <p className="text-sm text-white/90">
                   {specialty.description}
                 </p>
               </div>

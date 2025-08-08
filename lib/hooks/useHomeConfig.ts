@@ -1,5 +1,3 @@
-'use client';
-
 import { useState, useEffect } from 'react';
 import { HomePageConfig } from '@/types';
 import { DEFAULT_HOME_CONFIG } from '@/lib/constants';

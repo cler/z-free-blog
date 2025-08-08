@@ -10,39 +10,32 @@ interface VideoProps {
 }
 
 export default function Video({ config }: VideoProps) {
-  if (!config) {
-    return (
-      <div className="h-dvh flex items-center justify-center bg-gray-900">
-        <div className="text-white text-xl">加载中...</div>
-      </div>
-    );
-  }
-
-  const videoSrc = config.videoUrl || "/video/V1.mp4";
+  // 服务端已经保证config存在，使用默认值作为fallback
+  const videoSrc = config?.videoUrl || "/video/V1.mp4";
 
   // 从全局配置构建个人信息数据
   const personalInfo: PersonalInfo = {
-    title: config.globalTitle || "开发者",
-    subtitle: config.globalDescription || "全栈开发工程师",
+    title: config?.globalTitle || "开发者",
+    subtitle: config?.globalDescription || "全栈开发工程师",
     frontendStack: {
-      title: config.cardTitle1 || "前端技术栈",
-      skills: config.cardContent1 ? 
+      title: config?.cardTitle1 || "前端技术栈",
+      skills: config?.cardContent1 ? 
         config.cardContent1.split('\n').filter(skill => skill.trim()).map(skill => ({
           name: skill.trim(),
           description: ""
         })) : []
     },
     backendStack: {
-      title: config.cardTitle2 || "后端技术栈",
-      skills: config.cardContent2 ? 
+      title: config?.cardTitle2 || "后端技术栈",
+      skills: config?.cardContent2 ? 
         config.cardContent2.split('\n').filter(skill => skill.trim()).map(skill => ({
           name: skill.trim(),
           description: ""
         })) : []
     },
     specialties: {
-      title: config.cardTitle3 || "专业技能",
-      items: config.cardContent3 ? 
+      title: config?.cardTitle3 || "专业技能",
+      items: config?.cardContent3 ? 
         (() => {
           try {
             const parsed = JSON.parse(config.cardContent3);

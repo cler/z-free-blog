@@ -1,20 +1,16 @@
-'use client';
-
 import Header from "@/components/shared/header";
-import ProjectList from "@/components/shared/project-list";
 import Video from "@/components/shared/video";
-import { useHomeConfig } from "@/lib/hooks/useHomeConfig";
+import { getActiveHomeConfig } from "@/lib/actions/homeconfig.action";
+import { DEFAULT_HOME_CONFIG } from "@/lib/constants";
+import { HomePageConfig } from "@/types";
+import { convertToPlainObject } from "@/lib/utils";
 
-export default function Home() {
-  const { config, loading } = useHomeConfig();
 
-  if (loading) {
-    return (
-      <div className="h-screen flex items-center justify-center bg-gray-900">
-        <div className="text-white text-xl">加载中...</div>
-      </div>
-    );
-  }
+
+export default async function Home() {
+  // 使用服务端action获取配置数据
+  const result = await getActiveHomeConfig();
+  const config: HomePageConfig = result.success && result.data ? convertToPlainObject(result.data) : DEFAULT_HOME_CONFIG;
 
   return (
     <main>
@@ -23,7 +19,6 @@ export default function Home() {
         config={config}
       />
       <Video config={config} />
-      <ProjectList />
     </main>
   );
 }

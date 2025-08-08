@@ -36,7 +36,7 @@ export default function VideoAnimation({ videoSrc, children, className = '', per
         // 获取视频时长并计算动画时长
         const videoDuration = vdRef.current?.duration || 10;
         const animationDuration = Math.min(videoDuration * 0.3, 5); // 动画时长为视频时长的30%，最大5秒
-        const delayTime = Math.min(videoDuration * 0.5, 8); // 延迟时间为视频时长的50%，在后半段开始，最大8秒
+        const delayTime = Math.min(videoDuration * 0.3, 8); // 延迟时间为视频时长的50%，在后半段开始，最大8秒
         
         // 创建自动播放的时间线
         const tl = gsap.timeline({
@@ -47,7 +47,7 @@ export default function VideoAnimation({ videoSrc, children, className = '', per
         // 个人信息从下方移动到中心
         tl.to(personalInfoSelector, {
           y: "0",
-          opacity: 0.5,
+          opacity: 1,
           duration: animationDuration,
           ease: "power2.out",
         })
