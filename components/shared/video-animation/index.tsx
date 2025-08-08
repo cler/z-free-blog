@@ -19,7 +19,6 @@ export default function VideoAnimation({ videoSrc, children, className = '', per
   useGSAP(() => {
     // 初始设置
     gsap.set(vdRef.current, {
-      scale: 1.2,
       transformOrigin: "center center",
     });
 
@@ -58,12 +57,6 @@ export default function VideoAnimation({ videoSrc, children, className = '', per
           ease: "power2.inOut",
         },"<")
         // 视频缩放效果
-        .to(vdRef.current, {
-          scale: 1,
-          duration: animationDuration * 0.6,
-          ease: "power2.inOut",
-        }, `-=${animationDuration * 0.3}`)
-       
       };
     }
   });
@@ -81,8 +74,8 @@ export default function VideoAnimation({ videoSrc, children, className = '', per
           ref={vdRef}
         />
       </div>
-      {/* 可滚动内容区域 */}
-      <div className="relative z-10 min-h-dvh flex items-center justify-center overflow-y-auto">
+      {/* 内容区域 */}
+      <div className="relative z-10 min-h-dvh flex items-center justify-center">
         <div className="w-full">
           {children}
         </div>
