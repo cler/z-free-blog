@@ -100,11 +100,15 @@ model HomePageConfig {
   navSlogan         String?  // 导航栏标语
   navLogo           String?  // 导航栏Logo
   
+  // 全局配置
+  globalTitle       String?  // 全局标题
+  globalDescription String?  @db.Text // 全局描述
+  
   // 个人介绍配置
-  personalName      String?  // 个人姓名
-  personalTitle     String?  // 个人职位/标题
+  personalName      String?  // 姓名
+  personalTitle     String?  // 职位/标题
   personalBio       String?  @db.Text // 个人简介
-  personalAvatar    String?  // 个人头像
+  personalAvatar    String?  // 头像URL
   personalLocation  String?  // 所在地
   personalWebsite   String?  // 个人网站
   personalEmail     String?  // 联系邮箱

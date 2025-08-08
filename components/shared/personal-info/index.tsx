@@ -50,7 +50,7 @@ export default function PersonalInfoComponent({ data, className = '' }: Personal
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
             {data.specialties.items.map((specialty, index) => (
               <div key={index}>
-                <div className="text-3xl mb-2">{specialty.icon}</div>
+                <div className="text-3xl mb-2">{specialty.emoji}</div>
                 <h3 className="font-semibold text-gray-700 mb-2">{specialty.title}</h3>
                 <p className="text-sm text-gray-600">
                   {specialty.description}

@@ -9,7 +9,7 @@ export interface TechStack {
 }
 
 export interface Specialty {
-  icon: string;
+  emoji: string;
   title: string;
   description: string;
 }

@@ -115,6 +115,37 @@ export function CardsConfig({
 
   return (
     <div className="space-y-6">
+      {/* 全局配置卡片 */}
+      <Card>
+        <CardHeader>
+          <CardTitle>全局配置</CardTitle>
+          <CardDescription>设置网站全局标题和描述信息</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="globalTitle">全局标题</Label>
+            <Input
+              id="globalTitle"
+              value={config.globalTitle as string || ''}
+              onChange={(e) => updateConfig('globalTitle', e.target.value)}
+              placeholder="输入网站全局标题"
+              maxLength={100}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="globalDescription">全局描述</Label>
+            <textarea
+              id="globalDescription"
+              value={config.globalDescription as string || ''}
+              onChange={(e) => updateConfig('globalDescription', e.target.value)}
+              placeholder="输入网站全局描述"
+              className="w-full min-h-[100px] px-3 py-2 border border-input bg-background text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none rounded-md"
+              maxLength={500}
+            />
+          </div>
+        </CardContent>
+      </Card>
+
       {/* 前端技术栈卡片 */}
       <Card>
         <CardHeader>

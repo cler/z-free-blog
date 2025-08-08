@@ -4,9 +4,14 @@ import Link from 'next/link'
 import React from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
+import { HomePageConfig } from '@/types'
 
-function Logo() {
-  const logoText = "LEFT IS FACK MOVIE,人生如戏呀、老铁"
+interface LogoProps {
+  config?: HomePageConfig | null;
+}
+
+function Logo({ config }: LogoProps) {
+  const logoText = config?.navLogo || "LEFT IS FACK MOVIE,人生如戏呀、老铁"
 
   useGSAP(
     () => {

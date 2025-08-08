@@ -42,6 +42,9 @@ export const homePageConfigSchema = z.object({
   twitterUrl: z.string().url('请输入有效的Twitter URL').optional().or(z.literal('')).or(z.null()),
   linkedinUrl: z.string().url('请输入有效的LinkedIn URL').optional().or(z.literal('')).or(z.null()),
   wechatQr: z.string().url('请输入有效的微信二维码URL').optional().or(z.literal('')).or(z.null()),
+  // 全局标题和描述
+  globalTitle: z.string().min(1, '全局标题不能为空').max(100, '全局标题不能超过100个字符').optional().or(z.literal('')).or(z.null()),
+  globalDescription: z.string().max(500, '全局描述不能超过500个字符').optional().or(z.literal('')).or(z.null()),
   // 卡片信息配置
   cardTitle1: z.string().max(50, '卡片标题不能超过50个字符').optional().or(z.literal('')).or(z.null()),
   cardContent1: z.string().max(200, '卡片内容不能超过200个字符').optional().or(z.literal('')).or(z.null()),
