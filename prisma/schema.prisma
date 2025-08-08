@@ -149,3 +149,24 @@ model HomePageConfig {
   @@map("homepage_configs")
   @@unique([configName]) // 确保配置名称唯一
 }
+
+// 项目管理表
+model Project {
+  id            String   @id @default(cuid())
+  title         String   // 项目标题
+  description   String   @db.Text // 项目描述
+  previewUrl    String?  // 预览链接
+  repositoryUrl String?  // 仓库链接
+  techStack     String[] // 技术栈数组
+  startDate     String   // 开始时间
+  endDate       String?  // 结束时间
+  status        String   @default("进行中") // 项目状态：进行中、已完成、暂停
+  image         String?  // 项目图片
+  featured      Boolean  @default(false) // 是否为精选项目
+  sortOrder     Int      @default(0) // 排序顺序
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@map("projects")
+}

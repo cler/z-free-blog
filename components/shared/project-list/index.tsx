@@ -1,73 +1,27 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useTransition } from "react";
 import {
   AiOutlineGithub,
   AiOutlineEye,
   AiOutlineClose,
   AiOutlineCalendar,
 } from "react-icons/ai";
-import { ShineBorder } from "@/components/magicui/shine-border";
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { BorderBeam } from "@/components/magicui/border-beam";
+import { Button } from "@/components/ui/button";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import Link from "next/link";
+import { Project, getProjects } from "@/lib/services/projects";
 
-interface Project {
-  id: string;
-  title: string;
-  description: string;
-  previewUrl: string;
-  repositoryUrl: string;
-  techStack: string[];
-  startDate: string;
-  endDate?: string;
-  image?: string;
-}
-
-const projects: Project[] = [
-  {
-    id: "1",
-    title: "Z-Free-Blog",
-    description:
-      "基于 Next.js 15 开发的现代化个人博客系统，支持 GSAP 动画、响应式设计和优雅的用户界面。",
-    previewUrl: "http://localhost:3001",
-    repositoryUrl: "https://github.com/username/z-free-blog",
-    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "GSAP"],
-    startDate: "2024-01",
-    endDate: "2024-02",
-  },
-  {
-    id: "2",
-    title: "E-Commerce Platform",
-    description:
-      "全栈电商平台，包含用户管理、商品管理、订单处理、支付集成等完整功能。",
-    previewUrl: "https://example-ecommerce.com",
-    repositoryUrl: "https://github.com/username/ecommerce-platform",
-    techStack: ["React", "Node.js", "MongoDB", "Express", "Stripe"],
-    startDate: "2023-09",
-    endDate: "2023-12",
-  },
-  {
-    id: "3",
-    title: "Task Management App",
-    description:
-      "团队协作任务管理应用，支持项目管理、任务分配、进度跟踪和实时通讯。",
-    previewUrl: "https://example-taskapp.com",
-    repositoryUrl: "https://github.com/username/task-management",
-    techStack: ["Vue.js", "Firebase", "Vuetify", "Socket.io"],
-    startDate: "2023-06",
-    endDate: "2023-08",
-  },
-];
+// 项目数据现在从 API 获取
 
 const getTechStackColor = (tech: string) => {
   const colors: { [key: string]: string } = {
@@ -84,6 +38,9 @@ const getTechStackColor = (tech: string) => {
     Firebase: "bg-orange-500 text-white",
     Vuetify: "bg-blue-400 text-white",
     "Socket.io": "bg-gray-800 text-white",
+    Python: "bg-yellow-500 text-white",
+    FastAPI: "bg-teal-600 text-white",
+    OpenAI: "bg-emerald-600 text-white",
   };
   return colors[tech] || "bg-gray-500 text-white";
 };
@@ -101,10 +58,12 @@ const TechStackMarquee = ({ techStack }: { techStack: string[] }) => {
       const elWidth = el.scrollWidth;
       const parentWidth = parent.offsetWidth;
 
-      if (elWidth > parentWidth) {
+      // 降低触发阈值，当内容宽度接近容器宽度时就启用滚动
+      // 或者当技术栈数量超过3个时强制启用滚动效果
+      if (elWidth > parentWidth - 20 || techStack.length > 3) {
         gsap.to(el, {
-          x: -(elWidth - parentWidth + 16),
-          duration: techStack.length * 0.9,
+          x: -(Math.max(elWidth - parentWidth + 16, 50)), // 确保至少有50px的滚动距离
+          duration: Math.max(techStack.length * 0.9, 3), // 最小动画时长3秒
           ease: "none",
           repeat: -1,
           yoyo: true,
@@ -133,24 +92,52 @@ const TechStackMarquee = ({ techStack }: { techStack: string[] }) => {
 };
 
 function ProjectList() {
+  const [projects, setProjects] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [showPreview, setShowPreview] = useState(false);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [isPending, startTransition] = useTransition();
+
+  // 加载项目数据
+  useEffect(() => {
+    loadProjects();
+  }, []);
+
+  const loadProjects = async () => {
+      startTransition(async() => {
+          const response = await getProjects({ featured: true });
+          if (response.success && response.data) {
+            setProjects(response.data);
+          } else {
+            console.error('Failed to load projects:', response.error);
+          }
+      });
+  };
 
   const handlePreview = (project: Project) => {
     setSelectedProject(project);
-    setShowPreview(true);
+    setIsPreviewOpen(true);
   };
 
   const closePreview = () => {
-    setShowPreview(false);
+    setIsPreviewOpen(false);
     setSelectedProject(null);
   };
 
+  if (isPending) {
+    return (
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        <div className="flex justify-center items-center py-12">
+          <div className="text-gray-500">加载项目中...</div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">我的项目作品</h2>
-        <p className="text-gray-600 max-w-2xl mx-auto">
+      <div className="text-center mb-12 relative z-50">
+        <h2 className="text-3xl font-bold text-white mb-4">我的项目作品</h2>
+        <p className="text-gray-300 max-w-2xl mx-auto">
           这里展示了我开发的一些项目，涵盖了前端、后端、全栈开发等不同领域的技术实践。
         </p>
       </div>
@@ -160,9 +147,8 @@ function ProjectList() {
           return (
             <Card
               key={project.id}
-              className="relative overflow-hidden max-w-[350px] w-full"
+              className="relative overflow-hidden max-w-[350px] w-full border border-gray-200"
             >
-              <BorderBeam duration={8} size={100} />
               <CardHeader>
                 <CardTitle>{project.title}</CardTitle>
                 <CardDescription>{project.description}</CardDescription>
@@ -182,13 +168,39 @@ function ProjectList() {
                   <TechStackMarquee techStack={project.techStack} />
                 </div>
               </CardContent>
+              <CardFooter className="pt-4">
+                <div className="flex space-x-2 w-full">
+                  <Button
+                    onClick={() => handlePreview(project)}
+                    className="flex-1"
+                    variant="default"
+                  >
+                    <AiOutlineEye className="mr-2" />
+                    预览
+                  </Button>
+                  <Button
+                    asChild
+                    className="flex-1"
+                    variant="outline"
+                  >
+                    <Link
+                      href={project.repositoryUrl || "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <AiOutlineGithub className="mr-2" />
+                      源码
+                    </Link>
+                  </Button>
+                </div>
+              </CardFooter>
             </Card>
           );
         })}
       </div>
 
       {/* 预览模态框 */}
-      {showPreview && selectedProject && (
+      {isPreviewOpen && selectedProject && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg w-full max-w-6xl h-5/6 flex flex-col">
             {/* 模态框头部 */}

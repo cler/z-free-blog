@@ -11,6 +11,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { usePageTitle } from "@/components/dashboard/page-title-context"
+import { useRouter } from "next/navigation"
 
 export function NavMain({
   items,
@@ -22,9 +23,11 @@ export function NavMain({
   }[]
 }) {
   const { setCurrentTitle } = usePageTitle()
+  const router = useRouter()
 
-  const handleMenuClick = (title: string) => {
-    setCurrentTitle(title)
+  const handleMenuClick = (item: { title: string; url: string }) => {
+    setCurrentTitle(item.title)
+    router.push(item.url)
   }
 
   return (
@@ -54,7 +57,7 @@ export function NavMain({
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton 
                 tooltip={item.title}
-                onClick={() => handleMenuClick(item.title)}
+                onClick={() => handleMenuClick(item)}
               >
                 {item.icon && <item.icon />}
                 <span>{item.title}</span>

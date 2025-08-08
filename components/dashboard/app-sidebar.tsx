@@ -46,19 +46,14 @@ const data = {
       icon: IconDashboard,
     },
     {
-      title: "生命周期",
-      url: "#",
-      icon: IconListDetails,
+      title: "项目管理",
+      url: "/dashboard/projects",
+      icon: IconFolder,
     },
     {
       title: "数据分析",
       url: "#",
       icon: IconChartBar,
-    },
-    {
-      title: "项目管理",
-      url: "#",
-      icon: IconFolder,
     },
     {
       title: "团队管理",
