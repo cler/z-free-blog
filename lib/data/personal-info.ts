@@ -27,17 +27,17 @@ export const personalInfoData: PersonalInfo = {
     title: '专业特长',
     items: [
       {
-        icon: '🚀',
+        emoji: '🚀',
         title: '性能优化',
         description: '专注于代码优化和用户体验提升'
       },
       {
-        icon: '🎨',
+        emoji: '🎨',
         title: 'UI/UX设计',
         description: '注重界面美观和交互体验'
       },
       {
-        icon: '⚡',
+        emoji: '⚡',
         title: '快速开发',
         description: '高效的开发流程和项目交付'
       }
